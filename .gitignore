@@ -1,0 +1,336 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static_root/
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.history/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Node.js / Vue.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm
+.eslintcache
+.stylelintcache
+.yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Vue.js specific
+vue-components/node_modules/
+vue-components/dist/
+vue-components/.nuxt/
+vue-components/.vuepress/dist
+vue-components/.serverless/
+vue-components/.fusebox/
+vue-components/.dynamodb/
+vue-components/.tern-port
+vue-components/.vscode-test
+vue-components/.yarn/cache
+vue-components/.yarn/unplugged
+vue-components/.yarn/build-state.yml
+vue-components/.yarn/install-state.gz
+vue-components/.pnp.*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ruff
+.ruff_cache/
+
+# Pre-commit
+.pre-commit-config.yaml.lock
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Documentation
+docs/_build/
+docs/.doctrees/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.sqlite3
+*.sqlite3-journal
+*.db
+
+# Redis
+dump.rdb
+
+# Secrets and credentials
+.env
+.env.local
+.env.*.local
+secrets.json
+credentials.json
+*.pem
+*.key
+*.crt
+*.p12
+
+# Django migrations (optional - uncomment if you want to exclude)
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# Local development files
+local_settings.py
+local.py
+settings_local.py
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# OS generated files
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Project specific
+/static_collected/
+/media_root/
+/logs/
+/tmp/
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Docker
+.dockerignore
+
+# Ansible
+*.retry
+
+# Ignore specific test databases
+test_*.db
+test_*.sqlite3

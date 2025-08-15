@@ -1,0 +1,9 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include aida_permissions/templates *
+recursive-include aida_permissions/static *
+recursive-include aida_permissions/migrations *
+recursive-include vue-components *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

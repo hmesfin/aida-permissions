@@ -1,0 +1,221 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aida-permissions"
+version = "1.0.0"
+description = "A flexible Django roles and permissions extension optimized for DRF and Vue.js"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/aida-permissions"
+Documentation = "https://github.com/yourusername/aida-permissions/blob/main/README.md"
+Repository = "https://github.com/yourusername/aida-permissions.git"
+"Bug Tracker" = "https://github.com/yourusername/aida-permissions/issues"
+
+[tool.ruff]
+# Ruff configuration - replaces black, isort, and flake8
+target-version = "py38"
+line-length = 120
+indent-width = 4
+
+# Enable all stable rules
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "DJ",   # flake8-django
+    "RUF",  # Ruff-specific rules
+    "UP",   # pyupgrade
+    "N",    # pep8-naming
+    "S",    # flake8-bandit (security)
+    "A",    # flake8-builtins
+    "COM",  # flake8-commas
+    "C90",  # mccabe complexity
+    "ISC",  # flake8-implicit-str-concat
+    "T20",  # flake8-print
+    "PIE",  # flake8-pie
+    "PT",   # flake8-pytest-style
+    "Q",    # flake8-quotes
+    "RET",  # flake8-return
+    "SIM",  # flake8-simplify
+    "TID",  # flake8-tidy-imports
+    "TCH",  # flake8-type-checking
+    "ARG",  # flake8-unused-arguments
+    "PTH",  # flake8-use-pathlib
+    "ERA",  # eradicate (commented-out code)
+    "PL",   # pylint
+    "TRY",  # tryceratops
+    "FLY",  # flynt
+    "PERF", # perflint
+]
+
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "B008",   # Do not perform function calls in argument defaults
+    "S101",   # Use of assert detected (needed for tests)
+    "A003",   # Class attribute shadows built-in (needed for id field)
+    "DJ001",  # Avoid using null=True on string fields (we need it for optional fields)
+    "RUF012", # Mutable class attributes (needed for Django)
+    "PLR0913", # Too many arguments (can be common in Django)
+    "S105",   # Possible hardcoded password (false positives in tests)
+    "S106",   # Possible hardcoded password (false positives in tests)
+]
+
+exclude = [
+    ".git",
+    ".ruff_cache",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "*.egg-info",
+    ".pytest_cache",
+    ".mypy_cache",
+    "migrations",
+    "build",
+    "dist",
+    "node_modules",
+    "vue-components/node_modules",
+]
+
+[tool.ruff.format]
+# Formatting options (replaces black)
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint]
+# Allow unused variables when underscore-prefixed
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Allow autofix for all enabled rules
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+# isort configuration
+known-first-party = ["aida_permissions"]
+known-django = ["django", "rest_framework"]
+section-order = [
+    "future",
+    "standard-library",
+    "django",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+combine-as-imports = true
+force-single-line = false
+force-sort-within-sections = true
+lines-after-imports = 2
+
+[tool.ruff.lint.per-file-ignores]
+# Per-file ignores
+"tests/*.py" = [
+    "S101",  # assert is fine in tests
+    "ARG",   # Unused arguments are okay in tests
+    "PLR2004", # Magic values are okay in tests
+    "S105",  # Hardcoded passwords okay in tests
+]
+"*/migrations/*.py" = [
+    "E501",  # Line length doesn't matter in migrations
+    "ERA",   # Don't remove commented code in migrations
+]
+"setup.py" = ["T201"]  # Print is okay in setup.py
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.pylint]
+max-args = 7
+max-branches = 12
+max-returns = 6
+max-statements = 50
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = """
+    -v
+    --tb=short
+    --strict-markers
+    --reuse-db
+    --cov=aida_permissions
+    --cov-report=term-missing
+    --cov-report=html
+    --cov-report=xml
+"""
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["aida_permissions"]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/apps.py",
+    "*/admin.py",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+skip_empty = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "if typing.TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
