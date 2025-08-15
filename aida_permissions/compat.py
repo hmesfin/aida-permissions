@@ -52,11 +52,9 @@ else:
     DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Handle middleware class vs function-based middleware
-if DJANGO_VERSION >= (4, 0):
-    MIDDLEWARE_MIXIN = object
-else:
-    from django.utils.deprecation import MiddlewareMixin
-    MIDDLEWARE_MIXIN = MiddlewareMixin
+# MiddlewareMixin is available in all Django versions we support
+from django.utils.deprecation import MiddlewareMixin
+MIDDLEWARE_MIXIN = MiddlewareMixin
 
 # Handle force_text/force_str changes
 if DJANGO_VERSION >= (4, 0):
