@@ -1,9 +1,16 @@
 include README.md
 include LICENSE
 include requirements.txt
-recursive-include aida_permissions/templates *
-recursive-include aida_permissions/static *
-recursive-include aida_permissions/migrations *
-recursive-include vue-components *
+include pyproject.toml
+include ruff.toml
+include pytest.ini
+recursive-include aida_permissions/migrations *.py
+recursive-include aida_permissions/templates *.html
+recursive-include aida_permissions/static *.js *.css *.png *.jpg *.svg
+recursive-include aida_permissions/locale *.po *.mo
+recursive-include vue-components *.vue *.js *.ts
+recursive-include docs *.md *.rst
+recursive-exclude tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
+recursive-exclude * .DS_Store

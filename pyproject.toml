@@ -37,10 +37,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/aida-permissions"
-Documentation = "https://github.com/yourusername/aida-permissions/blob/main/README.md"
-Repository = "https://github.com/yourusername/aida-permissions.git"
-"Bug Tracker" = "https://github.com/yourusername/aida-permissions/issues"
+Homepage = "https://github.com/hmesfin/aida-permissions"
+Documentation = "https://github.com/hmesfin/aida-permissions/blob/main/README.md"
+Repository = "https://github.com/hmesfin/aida-permissions.git"
+"Bug Tracker" = "https://github.com/hmesfin/aida-permissions/issues"
 
 [tool.ruff]
 # Ruff configuration - replaces black, isort, and flake8

@@ -334,3 +334,6 @@ Thumbs.db
 # Ignore specific test databases
 test_*.db
 test_*.sqlite3
+
+# Ignore PYPI_Publishing document
+PYPI_PUBLISHING.md

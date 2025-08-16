@@ -6,12 +6,18 @@ with open("README.md", encoding="utf-8") as fh:
 setup(
     name="aida-permissions",
     version="1.0.0",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="gojjotech",
+    author_email="admin@gojjotech.com",
     description="A flexible Django roles and permissions extension optimized for DRF and Vue.js",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/hmesfin/aida-permissions",
+    project_urls={
+        "Bug Tracker": "https://github.com/hmesfin/aida-permissions/issues",
+        "Documentation": "https://github.com/hmesfin/aida-permissions",
+        "Source Code": "https://github.com/hmesfin/aida-permissions",
+    },
+    keywords="django permissions roles rbac rest drf vue multi-tenant",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

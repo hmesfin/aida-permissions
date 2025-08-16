@@ -14,7 +14,7 @@
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/aida-permissions.git
+   git clone https://github.com/hmesfin/aida-permissions.git
    cd aida-permissions
    ```
 

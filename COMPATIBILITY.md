@@ -262,7 +262,7 @@ For version-specific issues:
 
 1. Check the [compatibility module](aida_permissions/compat.py)
 2. Review [Django release notes](https://docs.djangoproject.com/en/stable/releases/)
-3. Open an issue on [GitHub](https://github.com/yourusername/aida-permissions/issues)
+3. Open an issue on [GitHub](https://github.com/hmesfin/aida-permissions/issues)
 
 ## Future Django Versions
 
