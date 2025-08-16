@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from .models import Permission, PermissionCategory, Role, RolePermission, UserRole
+from .utils.user_utils import get_user_display_name, get_user_identifier
 
 User = get_user_model()
 
@@ -106,9 +107,10 @@ class UserRoleSerializer(serializers.ModelSerializer):
     def get_user_detail(self, obj):
         return {
             "id": obj.user.id,
-            "username": obj.user.username,
+            "identifier": get_user_identifier(obj.user),
+            "username": getattr(obj.user, "username", None),  # Keep for backward compatibility
             "email": getattr(obj.user, "email", ""),
-            "full_name": obj.user.get_full_name() if hasattr(obj.user, "get_full_name") else str(obj.user),
+            "full_name": get_user_display_name(obj.user),
         }
 
     def get_is_valid(self, obj):

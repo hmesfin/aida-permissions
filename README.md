@@ -24,6 +24,15 @@ A flexible and powerful Django roles and permissions extension optimized for Dja
 - Django 3.2, 4.0, 4.1, 4.2, 5.0, or 5.1
 - Django REST Framework 3.12+
 
+## Custom User Model Support
+
+AIDA Permissions fully supports custom Django User models, including:
+- Models using email as the primary identifier (USERNAME_FIELD = 'email')
+- Models without a username field
+- Models with custom authentication fields
+
+The extension automatically adapts to your User model configuration without requiring any additional setup.
+
 ## Installation
 
 Install using pip:
@@ -109,7 +118,12 @@ from aida_permissions.models import UserRole
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
+# Works with any User model configuration
+# For username-based models:
 user = User.objects.get(username="john")
+# For email-based models:
+# user = User.objects.get(email="john@example.com")
 
 # Assign role to user
 UserRole.objects.create(

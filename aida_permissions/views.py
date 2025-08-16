@@ -20,6 +20,7 @@ from .serializers import (
     UserRoleSerializer,
 )
 from .utils import PermissionChecker
+from .utils.user_utils import get_user_search_fields
 
 User = get_user_model()
 
@@ -191,9 +192,13 @@ class UserRoleViewSet(viewsets.ModelViewSet):
     permission_classes: ClassVar = [IsAuthenticated, AidaPermission]
     filter_backends: ClassVar = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields: ClassVar = ["user", "role", "is_active"]
-    search_fields: ClassVar = ["user__username", "user__email", "role__name", "role__display_name"]
     ordering_fields: ClassVar = ["assigned_at", "expires_at"]
     ordering: ClassVar = ["-assigned_at"]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Dynamically set search_fields based on User model
+        self.search_fields = get_user_search_fields()
 
     permission_required: ClassVar = {
         "list": "user_roles.view",

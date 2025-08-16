@@ -7,6 +7,7 @@ from django.utils.html import format_html
 
 from .compat import _
 from .models import Permission, PermissionCategory, Role, RolePermission, UserRole
+from .utils.user_utils import get_user_search_fields
 
 User = get_user_model()
 
@@ -142,10 +143,14 @@ class RoleAdmin(admin.ModelAdmin):
 class UserRoleAdmin(admin.ModelAdmin):
     list_display: ClassVar = ["user", "role", "is_active", "assigned_at", "expires_at", "assigned_by"]
     list_filter: ClassVar = ["is_active", "role", "assigned_at", "expires_at"]
-    search_fields: ClassVar = ["user__username", "user__email", "role__name", "role__display_name"]
     autocomplete_fields: ClassVar = ["user", "role", "assigned_by"]
     readonly_fields: ClassVar = ["assigned_at"]
     date_hierarchy: ClassVar = "assigned_at"
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Dynamically set search_fields based on User model
+        self.search_fields = get_user_search_fields()
 
     fieldsets: ClassVar = (
         (None, {

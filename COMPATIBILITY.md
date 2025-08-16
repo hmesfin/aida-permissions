@@ -186,6 +186,59 @@ pip install "Django>=3.2,<4.0"
 pytest
 ```
 
+## Custom User Model Support
+
+AIDA Permissions fully supports custom Django User models with various configurations:
+
+### Email-based Authentication
+
+For User models using email as the primary identifier:
+
+```python
+# Custom User model
+class User(AbstractBaseUser):
+    email = models.EmailField(unique=True)
+    USERNAME_FIELD = 'email'
+    # ... other fields
+```
+
+AIDA Permissions automatically detects and adapts to this configuration:
+- Admin search fields adjust to use email
+- Management commands accept email identifiers
+- User displays show email when username is not available
+
+### Models Without Username Field
+
+For User models that don't have a username field:
+
+```python
+# Custom User model without username
+class User(AbstractBaseUser):
+    email = models.EmailField(unique=True)
+    full_name = models.CharField(max_length=255)
+    USERNAME_FIELD = 'email'
+    # No username field
+```
+
+The extension handles this gracefully:
+- No assumptions about username field existence
+- Fallback to email or user ID for identification
+- Dynamic field detection for admin and API
+
+### Custom Authentication Fields
+
+For User models with custom authentication fields:
+
+```python
+# Custom User model with unique identifier
+class User(AbstractBaseUser):
+    employee_id = models.CharField(unique=True, max_length=20)
+    USERNAME_FIELD = 'employee_id'
+    # ... other fields
+```
+
+Works seamlessly with any USERNAME_FIELD configuration.
+
 ## Known Compatibility Issues
 
 ### 1. Async Views (Django 4.1+)

@@ -5,7 +5,7 @@ with open("README.md", encoding="utf-8") as fh:
 
 setup(
     name="aida-permissions",
-    version="1.0.0",
+    version="1.0.2",
     author="gojjotech",
     author_email="admin@gojjotech.com",
     description="A flexible Django roles and permissions extension optimized for DRF and Vue.js",

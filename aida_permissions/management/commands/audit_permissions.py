@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from django.db.models import Count, Q
 
 from aida_permissions.models import Permission, Role, UserRole
+from aida_permissions.utils.user_utils import get_user_display_name, get_user_identifier
 
 User = get_user_model()
 
@@ -61,13 +62,29 @@ class Command(BaseCommand):
             self.general_audit(days, tenant_id)
 
     def audit_user(self, user_identifier, tenant_id):
+        # Try to find user by various fields
+        query = Q()
+        if hasattr(User, 'USERNAME_FIELD'):
+            username_field = getattr(User, 'USERNAME_FIELD', 'username')
+            query |= Q(**{username_field: user_identifier})
+        if hasattr(User(), 'email'):
+            query |= Q(email=user_identifier)
+        if hasattr(User(), 'username'):
+            query |= Q(username=user_identifier)
+        
         try:
-            user = User.objects.get(Q(username=user_identifier) | Q(email=user_identifier))
+            user = User.objects.get(query)
         except User.DoesNotExist:
             self.stdout.write(self.style.ERROR(f"User not found: {user_identifier}"))
             return
+        except User.MultipleObjectsReturned:
+            self.stdout.write(self.style.ERROR(f"Multiple users found for '{user_identifier}'"))
+            return
 
-        self.stdout.write(f"\nUser: {user.username} ({user.email})")
+        user_display = get_user_display_name(user)
+        user_id = get_user_identifier(user)
+        email = getattr(user, 'email', 'N/A')
+        self.stdout.write(f"\nUser: {user_display} (ID: {user_id}, Email: {email})")
         self.stdout.write("-" * 40)
 
         user_roles = UserRole.objects.filter(user=user, is_active=True)
@@ -123,7 +140,8 @@ class Command(BaseCommand):
             users = UserRole.objects.filter(role=role, is_active=True).select_related("user")
             self.stdout.write("\nUsers:")
             for user_role in users:
-                self.stdout.write(f"  - {user_role.user.username}")
+                user_display = get_user_display_name(user_role.user)
+                self.stdout.write(f"  - {user_display}")
 
     def audit_permission(self, permission_codename, tenant_id):
         try:
@@ -200,10 +218,11 @@ class Command(BaseCommand):
         ).select_related("user", "role", "assigned_by")[:10]
 
         for assignment in recent:
-            assigned_by = assignment.assigned_by.username if assignment.assigned_by else "System"
+            assigned_by = get_user_display_name(assignment.assigned_by) if assignment.assigned_by else "System"
+            user_display = get_user_display_name(assignment.user)
             self.stdout.write(
                 f"{assignment.assigned_at.strftime('%Y-%m-%d')}: "
-                f"{assignment.user.username} -> {assignment.role.display_name} "
+                f"{user_display} -> {assignment.role.display_name} "
                 f"(by {assigned_by})",
             )
 
@@ -220,8 +239,9 @@ class Command(BaseCommand):
         if expiring:
             for assignment in expiring:
                 days_left = (assignment.expires_at - datetime.now()).days
+                user_display = get_user_display_name(assignment.user)
                 self.stdout.write(
-                    f"{assignment.user.username}: {assignment.role.display_name} "
+                    f"{user_display}: {assignment.role.display_name} "
                     f"(expires in {days_left} days)",
                 )
         else:
