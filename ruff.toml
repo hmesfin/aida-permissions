@@ -45,8 +45,7 @@ exclude = [
     "migrations",
 ]
 
-# Assume Python 3.8+
-assume-python-version = "3.8"
+# Files to process
 
 # Show fixes
 show-fixes = true
@@ -93,6 +92,14 @@ ignore = [
     "A003",    # Shadowing builtins
     "DJ001",   # null=True on string fields
     "PLR0913", # Too many arguments
+    "PLR2004", # Magic value comparison - common in tests
+    "S106",    # Hardcoded password - okay in tests  
+    "ARG001",  # Unused function argument - common in Django
+    "ARG002",  # Unused method argument - common in Django
+    "RUF012",  # Mutable class default - Django uses these extensively
+    "PLC0415", # Import outside top-level - sometimes needed
+    "TRY003",  # Raise vanilla args
+    "TID252",  # Relative imports - Django apps use these
 ]
 
 # Auto-fixable rules

@@ -3,7 +3,6 @@ Compatibility module for different Django versions.
 Supports Django 3.2 through 5.1
 """
 
-import django
 from django import VERSION as DJANGO_VERSION
 
 # Django version checks
@@ -22,7 +21,7 @@ else:
 
 # Handle changes in URL patterns
 if DJANGO_VERSION >= (4, 0):
-    from django.urls import re_path, path
+    from django.urls import path, re_path
 else:
     from django.conf.urls import url as re_path
     from django.urls import path
@@ -30,10 +29,10 @@ else:
 # Handle admin site header changes
 if DJANGO_VERSION >= (5, 0):
     def get_admin_header_template():
-        return 'admin/base_site.html'
+        return "admin/base_site.html"
 else:
     def get_admin_header_template():
-        return 'admin/base_site.html'
+        return "admin/base_site.html"
 
 # Handle JSONField compatibility
 if DJANGO_VERSION >= (3, 2):
@@ -46,14 +45,12 @@ else:
         from django.db.models import TextField as JSONField
 
 # Handle default auto field
-if DJANGO_VERSION >= (3, 2):
-    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-else:
-    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField" if DJANGO_VERSION >= (3, 2) else "django.db.models.AutoField"
 
 # Handle middleware class vs function-based middleware
 # MiddlewareMixin is available in all Django versions we support
 from django.utils.deprecation import MiddlewareMixin
+
 MIDDLEWARE_MIXIN = MiddlewareMixin
 
 # Handle force_text/force_str changes
@@ -81,13 +78,13 @@ def cache_delete_pattern(pattern):
     Compatible across Django versions.
     """
     from django.core.cache import cache
-    
-    if hasattr(cache, 'delete_pattern'):
+
+    if hasattr(cache, "delete_pattern"):
         # Redis cache backend
         cache.delete_pattern(pattern)
-    elif hasattr(cache, 'delete_many'):
+    elif hasattr(cache, "delete_many"):
         # Django 3.2+ with delete_many
-        if hasattr(cache, 'keys'):
+        if hasattr(cache, "keys"):
             keys = cache.keys(pattern)
             if keys:
                 cache.delete_many(keys)
@@ -111,7 +108,6 @@ if DJANGO_VERSION >= (4, 0):
 else:
     def get_admin_urls():
         from django.contrib import admin
-        from django.urls import path
         return admin.site.urls
 
 # Model field compatibility
@@ -120,29 +116,26 @@ if DJANGO_VERSION >= (5, 0):
         return field.remote_field.related_name
 else:
     def get_related_name(field):
-        return field.remote_field.related_name if hasattr(field, 'remote_field') else field.related_name
+        return field.remote_field.related_name if hasattr(field, "remote_field") else field.related_name
 
 # Async support compatibility
-if DJANGO_VERSION >= (4, 1):
-    HAS_ASYNC_SUPPORT = True
-else:
-    HAS_ASYNC_SUPPORT = False
+HAS_ASYNC_SUPPORT = DJANGO_VERSION >= (4, 1)
 
 __all__ = [
-    '_',
-    're_path',
-    'path',
-    'JSONField',
-    'DEFAULT_AUTO_FIELD',
-    'MIDDLEWARE_MIXIN',
-    'force_str',
-    'force_text',
-    'include_with_namespace',
-    'cache_delete_pattern',
-    'timezone',
-    'USE_TZ_DEFAULT',
-    'get_admin_urls',
-    'get_related_name',
-    'HAS_ASYNC_SUPPORT',
-    'DJANGO_VERSION',
+    "DEFAULT_AUTO_FIELD",
+    "DJANGO_VERSION",
+    "HAS_ASYNC_SUPPORT",
+    "MIDDLEWARE_MIXIN",
+    "USE_TZ_DEFAULT",
+    "JSONField",
+    "_",
+    "cache_delete_pattern",
+    "force_str",
+    "force_text",
+    "get_admin_urls",
+    "get_related_name",
+    "include_with_namespace",
+    "path",
+    "re_path",
+    "timezone",
 ]

@@ -4,6 +4,7 @@ Pytest configuration for AIDA Permissions tests.
 
 import os
 import sys
+
 import django
 from django.conf import settings
 
@@ -11,7 +12,7 @@ from django.conf import settings
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Configure Django settings for tests
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tests.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tests.settings")
 
 # Setup Django
 def pytest_configure():

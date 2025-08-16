@@ -1,7 +1,7 @@
-from .permissions import PermissionChecker, has_permission, get_user_permissions
+from .permissions import PermissionChecker, get_user_permissions, has_permission
 
 __all__ = [
-    'PermissionChecker',
-    'has_permission',
-    'get_user_permissions',
+    "PermissionChecker",
+    "get_user_permissions",
+    "has_permission",
 ]
